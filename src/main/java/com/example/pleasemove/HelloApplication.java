@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class HelloApplication extends Application {
 
@@ -17,6 +18,7 @@ public class HelloApplication extends Application {
     double height = 600;
     static Pane root = new Pane();
     HelloController hl = new HelloController();
+
 
 
 

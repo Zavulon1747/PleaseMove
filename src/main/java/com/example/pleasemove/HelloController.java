@@ -2,11 +2,15 @@ package com.example.pleasemove;
 
 import javafx.fxml.FXML;
 
+import javafx.scene.media.*;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.Clip;
 import java.io.File;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -16,6 +20,8 @@ public class HelloController {
     int countScore = 0;
     Map<String, File> sounds = new HashMap<>();
 
+    AudioInputStream ais;
+    Clip clip;
 
 
     Image myImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/kiwiPlayer.png");
@@ -26,6 +32,7 @@ public class HelloController {
     ImageView imageViewKiwi = new ImageView(foodKiwi);
     Player player = new Player(imageView);
     Food food = new Food(imageViewKiwi);
+
 
 
 
@@ -49,16 +56,19 @@ public class HelloController {
     public void outOfBorder() {                         //Dodelat'
         if ((imageView.getX() + 50) > 800) {
             imageView.setX(750);
-            System.out.println("X");
+            System.out.println("X");                    //Test, print X if it work
         }
     }
 
     public void initMethod() {              //Set XY of gaming objects
         imageViewKiwi.setX(random.nextInt(700) + 50);
         imageViewKiwi.setY(random.nextInt(500) + 50);
-        sounds.put("Start", new File("D:\\Work\\PleaseMove\\src\\Sounds\\wouldYouLike.wav"));
-        sounds.put("FoodWasEaten", new File("D:\\Work\\PleaseMove\\src\\Sounds\\nyam.wav"));
-        sounds.get("Start");
+        sounds.put("Start", new File("D:\\Work\\PleaseMove\\src\\Sounds\\wouldYouLike.mp3"));
+        sounds.put("FoodWasEaten", new File("D:\\Work\\PleaseMove\\src\\Sounds\\nyam.mp3"));
+
+
+
+
     }
 
     public void eatKiwiFood() {
