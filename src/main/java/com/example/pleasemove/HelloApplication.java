@@ -18,6 +18,8 @@ public class HelloApplication extends Application {
     static Pane root = new Pane();
     HelloController hl = new HelloController();
 
+
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
@@ -46,7 +48,7 @@ public class HelloApplication extends Application {
             }
         });
 
-        stage.setTitle("Hello!");
+        stage.setTitle("Eat, Kiwi! Eat!");
         stage.setScene(scene);
         stage.show();
     }
