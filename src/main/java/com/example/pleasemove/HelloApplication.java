@@ -20,12 +20,10 @@ public class HelloApplication extends Application {
     HelloController hl = new HelloController();
 
 
-
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        root.setPrefSize(width,height);
+        root.setPrefSize(width, height);
         root.getChildren().addAll(hl.player, hl.food);
         Scene scene = new Scene(root);
         hl.initMethod();
@@ -34,18 +32,26 @@ public class HelloApplication extends Application {
             @Override
             public void handle(KeyEvent keyEvent) {
                 switch (keyEvent.getCode()) {
-                    case W : hl.playerUp();
-                    hl.eatKiwiFood();
-                    break;
-                    case S : hl.playerDown();
-                    hl.eatKiwiFood();
-                    break;
-                    case A: hl.playerLeft();
-                    hl.eatKiwiFood();
-                    break;
-                    case D: hl.playerRight();
-                    hl.eatKiwiFood();
-                    break;
+                    case W:
+                        hl.playerUp();
+                        hl.eatKiwiFood();
+                        hl.outOfBorder();
+                        break;
+                    case S:
+                        hl.playerDown();
+                        hl.eatKiwiFood();
+                        hl.outOfBorder();
+                        break;
+                    case A:
+                        hl.playerLeft();
+                        hl.eatKiwiFood();
+                        hl.outOfBorder();
+                        break;
+                    case D:
+                        hl.playerRight();
+                        hl.eatKiwiFood();
+                        hl.outOfBorder();
+                        break;
                 }
             }
         });

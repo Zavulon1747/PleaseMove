@@ -10,7 +10,6 @@ public class Food extends Pane {
 
     final private int width = 50;
     final private int height = 50;
-    Random random = new Random();
 
     ImageView foodKiwi;
 
