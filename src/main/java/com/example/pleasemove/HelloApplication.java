@@ -1,6 +1,7 @@
 package com.example.pleasemove;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,21 +25,24 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         root.setPrefSize(width, height);
-        root.getChildren().addAll(hl.player, hl.food, hl.butcherView);
+        root.getChildren().addAll(hl.player, hl.food, hl.butcherView, hl.gameOver);
         Scene scene = new Scene(root);
         hl.initMethod();
-        Thread butcherThread = new Thread(new Runnable() { //Butcher is moving to Player
+
+        //Butcher is moving to Player
+        Thread butcherThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (hl.getGameStarted()) {
                     hl.enemyStep();
                     try {
-                        Thread.sleep(16);
+                        Thread.sleep(17);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     if (hl.isCaught()) {
                         hl.setGameStarted(false);
+                        hl.setGameOver();
                     }
                 }
             }

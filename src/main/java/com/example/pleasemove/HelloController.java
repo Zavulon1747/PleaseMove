@@ -1,9 +1,12 @@
 package com.example.pleasemove;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
@@ -23,7 +26,8 @@ public class HelloController {
     AudioInputStream ais;
     Clip clip;
 
-
+    @FXML
+    Label gameOver = new Label("");
     Image playerImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/kiwiPlayer.png");
     Image foodImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/foodKiwi.png");
     Image butcherImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/chefCook.png");
@@ -103,6 +107,20 @@ public class HelloController {
                 butcherView.setY(butcherView.getY() + 1);
             }
         }
+    }
+
+    public void setGameOver() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                gameOver.setText("GAME OVER");
+            }
+        }); //For avoid Exception
+        gameOver.setPrefWidth(380);
+        gameOver.setPrefHeight(50);
+        gameOver.setLayoutX(112);
+        gameOver.setLayoutY(150);
+        gameOver.setFont(new Font(68));
     }
 
     public Boolean isCaught() {
