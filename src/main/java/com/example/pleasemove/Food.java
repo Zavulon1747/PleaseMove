@@ -4,8 +4,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-import java.util.Random;
-
 public class Food extends Pane {
 
     final private int width = 50;

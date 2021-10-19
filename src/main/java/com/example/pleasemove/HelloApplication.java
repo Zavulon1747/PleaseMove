@@ -24,9 +24,26 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         root.setPrefSize(width, height);
-        root.getChildren().addAll(hl.player, hl.food);
+        root.getChildren().addAll(hl.player, hl.food, hl.butcherView);
         Scene scene = new Scene(root);
         hl.initMethod();
+        Thread butcherThread = new Thread(new Runnable() { //Butcher is moving to Player
+            @Override
+            public void run() {
+                while (hl.getGameStarted()) {
+                    hl.enemyStep();
+                    try {
+                        Thread.sleep(16);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (hl.isCaught()) {
+                        hl.setGameStarted(false);
+                    }
+                }
+            }
+        });
+        butcherThread.start();
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override

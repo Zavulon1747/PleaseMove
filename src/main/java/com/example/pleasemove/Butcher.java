@@ -11,9 +11,9 @@ public class Butcher extends Pane {
 
     ImageView butcherView;
 
-    Butcher(ImageView butcherView) {
-        this.butcherView = butcherView;
+    Butcher(ImageView imageView) {
+        this.butcherView = imageView;
         this.butcherView.setViewport(new Rectangle2D(0, 0, width, height));
-        this.getChildren().addAll(butcherView);
+        this.getChildren().addAll(imageView);
     }
 }
