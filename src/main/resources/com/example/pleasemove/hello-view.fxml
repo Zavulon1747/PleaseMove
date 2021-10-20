@@ -28,5 +28,6 @@
             <Font size="68.0" />
          </font>
       </Label>
+      <Label fx:id="scorePoint" layoutX="541.0" layoutY="5.0" prefHeight="19.0" prefWidth="59.0" text="score:" />
    </children>
 </AnchorPane>

@@ -20,7 +20,7 @@ public class HelloController {
 
     private boolean isGameStarted = false;
     Random random = new Random();
-    int countScore = 0;
+    int countScore = 110;
     Map<String, File> sounds = new HashMap<>();
 
     AudioInputStream ais;
@@ -28,6 +28,8 @@ public class HelloController {
 
     @FXML
     Label gameOver = new Label("");
+    @FXML
+    Label scorePoint = new Label("Score: ");
     Image playerImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/kiwiPlayer.png");
     Image foodImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/foodKiwi.png");
     Image butcherImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/chefCook.png");
@@ -74,6 +76,7 @@ public class HelloController {
     //Just init Method
     public void initMethod() {
         isGameStarted = true;
+        setScorePoint();
         foodView.setX(random.nextInt(700) + 50);
         foodView.setY(random.nextInt(500) + 50);
         butcherView.setX(750);
@@ -91,12 +94,13 @@ public class HelloController {
         }
     }
 
+    //New random position of food
     public void update() {
         while (playerView.getBoundsInParent().intersects(foodView.getBoundsInParent())) {
             foodView.setX(random.nextInt(750));
             foodView.setY(random.nextInt(550));
         }
-
+        setScorePoint();
     }
 
     public void enemyStep() {
@@ -127,6 +131,20 @@ public class HelloController {
         gameOver.setLayoutX(112);
         gameOver.setLayoutY(150);
         gameOver.setFont(new Font(68));
+    }
+
+    public void setScorePoint() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                scorePoint.setText("Score: "+countScore);
+            }
+        });
+        scorePoint.setPrefWidth(100);
+        scorePoint.setPrefHeight(25);
+        scorePoint.setLayoutX(700);
+        scorePoint.setLayoutY(0);
+        scorePoint.setFont(new Font(20));
     }
 
     public Boolean isCaught() {
