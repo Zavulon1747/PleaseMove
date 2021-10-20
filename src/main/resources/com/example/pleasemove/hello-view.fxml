@@ -6,8 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pleasemove.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pleasemove.HelloController">
    <children>
+      <ImageView fx:id="backgroundView" fitHeight="600.0" fitWidth="800.0" layoutX="6.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="player" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../Witch_Swapm/src/main/resources/1.png" />
@@ -18,7 +19,7 @@
             <Image url="@../../../../../pixelArts/foodKiwi.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="butcherView" fitHeight="50.0" fitWidth="50.0" layoutX="550.0" layoutY="350.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="butcherView" fitHeight="50.0" fitWidth="50.0" layoutX="750.0" layoutY="550.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../pixelArts/chefCook.png" />
          </image>
@@ -28,6 +29,6 @@
             <Font size="68.0" />
          </font>
       </Label>
-      <Label fx:id="scorePoint" layoutX="541.0" layoutY="5.0" prefHeight="19.0" prefWidth="59.0" text="score:" />
+      <Label fx:id="scorePoint" layoutX="727.0" layoutY="5.0" prefHeight="19.0" prefWidth="67.0" text="score:" />
    </children>
 </AnchorPane>
