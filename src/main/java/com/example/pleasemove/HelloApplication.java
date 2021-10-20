@@ -22,7 +22,7 @@ public class HelloApplication extends Application {
 
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage)  {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         root.setPrefSize(width, height);
         root.getChildren().addAll(hl.player, hl.food, hl.butcherView, hl.gameOver);

@@ -43,29 +43,36 @@ public class HelloController {
 
     @FXML
     public void playerUp() {
-        playerView.setY(playerView.getY() - 25);
+        if (isGameStarted) playerView.setY(playerView.getY() - 25);
     }
 
     public void playerDown() {
-        playerView.setY(playerView.getY() + 25);
+        if (isGameStarted) playerView.setY(playerView.getY() + 25);
     }
 
     public void playerLeft() {
-        playerView.setX(playerView.getX() - 25);
+        if (isGameStarted) playerView.setX(playerView.getX() - 25);
     }
 
     public void playerRight() {
-        playerView.setX(playerView.getX() + 25);
+        if (isGameStarted) playerView.setX(playerView.getX() + 25);
     }
 
-    public void outOfBorder() {                         //Dodelat'
+    // Prevents the player's picture from going beyond the established frames
+    public void outOfBorder() {
         if ((playerView.getX() + 50) > 800) {
             playerView.setX(750);
-            System.out.println("X");                    //Test, print X if it work
+        } else if (playerView.getX()<0) {
+            playerView.setX((0));
+        } else if ((playerView.getY()+50) > 600) {
+            playerView.setY(550);
+        } else if (playerView.getY()<0) {
+            playerView.setY(0);
         }
     }
 
-    public void initMethod() {              //Set XY of gaming objects
+    //Just init Method
+    public void initMethod() {
         isGameStarted = true;
         foodView.setX(random.nextInt(700) + 50);
         foodView.setY(random.nextInt(500) + 50);
@@ -73,10 +80,9 @@ public class HelloController {
         butcherView.setY(550);
         sounds.put("Start", new File("D:\\Work\\PleaseMove\\src\\Sounds\\wouldYouLike.mp3"));
         sounds.put("FoodWasEaten", new File("D:\\Work\\PleaseMove\\src\\Sounds\\nyam.mp3"));
-
-
     }
 
+    //Method checks if food has been eaten
     public void eatKiwiFood() {
         if (playerView.getBoundsInParent().intersects(foodView.getBoundsInParent())) {
             countScore++;
