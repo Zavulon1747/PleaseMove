@@ -103,6 +103,8 @@ public class HelloController {
         foodView.setY(random.nextInt(500) + 50);
         butcherView.setX(750);
         butcherView.setY(550);
+        ratView.setX(801);
+        ratView.setY(random.nextInt(550));
         sounds.put("start", new File("D:\\Work\\PleaseMove\\src\\Sounds\\wouldYouLikeWAV.wav"));
         sounds.put("nyam", new File("D:\\Work\\PleaseMove\\src\\Sounds\\nyamWAV.wav"));
         sounds.put("end", new File("D:\\Work\\PleaseMove\\src\\Sounds\\GameOverWAV.wav"));
@@ -124,7 +126,7 @@ public class HelloController {
             foodView.setY(random.nextInt(550));
         }
         setScorePoint();
-        //if(countScore == 25) createThreadRat();
+        if(countScore == 2) createThreadRat();
         playNyam();
     }
 
@@ -147,28 +149,30 @@ public class HelloController {
 
     //AI's rat
     public void ratStep() {
-
+        ratView.setX(ratView.getX()-2);
     }
 
     public void createThreadRat() {
-        ratView.setX(800);
-        ratView.setY(0);
 
         ratThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                ratStep();
-                try {
-                    Thread.sleep(15);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if (isCaught()) {
-                    setGameStarted(false);
-                    setGameOver();
+                while (ratView.getX()>(-26.0)&& getGameStarted()) {
+                    ratStep();
+                    try {
+                        Thread.currentThread().sleep(20);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (isCaught()) {
+                        setGameStarted(false);
+                        setGameOver();
+                        break;
+                    }
                 }
             }
         });
+        ratThread.start();
     }
 
     //Label with words "Game Over" was set on main Frame + gameOver sound is started
@@ -196,7 +200,7 @@ public class HelloController {
                 while (getGameStarted()) {
                     butcherStep();
                     try {
-                        Thread.sleep(17);
+                        Thread.currentThread().sleep(17);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

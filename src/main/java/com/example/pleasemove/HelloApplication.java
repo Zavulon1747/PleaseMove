@@ -44,6 +44,7 @@ public class HelloApplication extends Application {
             }
         });
         stage.show();
+
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
