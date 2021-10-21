@@ -31,54 +31,11 @@ public class HelloApplication extends Application {
         hl.initMethod();
 
         //Butcher is moving to Player
-        Thread butcherThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (hl.getGameStarted()) {
-                    hl.enemyStep();
-                    try {
-                        Thread.sleep(17);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if (hl.isCaught()) {
-                        hl.setGameStarted(false);
-                        hl.setGameOver();
-                    }
-                }
-            }
-        });
-        butcherThread.start();
 
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                switch (keyEvent.getCode()) {
-                    case W:
-                        hl.playerUp();
-                        hl.eatKiwiFood();
-                        hl.outOfBorder();
-                        break;
-                    case S:
-                        hl.playerDown();
-                        hl.eatKiwiFood();
-                        hl.outOfBorder();
-                        break;
-                    case A:
-                        hl.playerLeft();
-                        hl.eatKiwiFood();
-                        hl.outOfBorder();
-                        break;
-                    case D:
-                        hl.playerRight();
-                        hl.eatKiwiFood();
-                        hl.outOfBorder();
-                        break;
-                }
-            }
-        });
+
 
         stage.setTitle("Eat, Kiwi! Eat!");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -87,6 +44,39 @@ public class HelloApplication extends Application {
             }
         });
         stage.show();
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                switch (keyEvent.getCode()) {
+                    case W -> {
+                        hl.playerUp();
+                        hl.eatKiwiFood();
+                        hl.outOfBorder();
+                    }
+                    case S -> {
+                        hl.playerDown();
+                        hl.eatKiwiFood();
+                        hl.outOfBorder();
+                    }
+                    case A -> {
+                        hl.playerLeft();
+                        hl.eatKiwiFood();
+                        hl.outOfBorder();
+                    }
+                    case D -> {
+                        hl.playerRight();
+                        hl.eatKiwiFood();
+                        hl.outOfBorder();
+                    }
+                    case ENTER -> {
+                        hl.clip.close();
+                        if (!hl.getGameStarted()) {
+                            hl.initMethod();
+                        }
+                    }
+                }
+            }
+        });
     }
 
     public static void main(String[] args) {
