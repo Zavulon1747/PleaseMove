@@ -28,6 +28,7 @@ public class HelloController {
     Clip clip;
 
     Thread butcherThread;
+    Thread ratThread;
 
     @FXML
     Label gameOver = new Label("");
@@ -36,6 +37,7 @@ public class HelloController {
     Image playerImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/kiwiPlayer.png");
     Image foodImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/foodKiwi.png");
     Image butcherImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/chefCook.png");
+    Image ratImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/rat25.png");
     Image backgroundImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/Background1.png");
     @FXML
     ImageView playerView = new ImageView(playerImage);
@@ -43,6 +45,8 @@ public class HelloController {
     ImageView foodView = new ImageView(foodImage);
     @FXML
     ImageView butcherView = new ImageView(butcherImage);
+    @FXML
+    ImageView ratView = new ImageView(ratImage);
     @FXML
     ImageView backgroundView = new ImageView(backgroundImage);
     Player player = new Player(playerView);
@@ -120,6 +124,7 @@ public class HelloController {
             foodView.setY(random.nextInt(550));
         }
         setScorePoint();
+        //if(countScore == 25) createThreadRat();
         playNyam();
     }
 
@@ -138,6 +143,32 @@ public class HelloController {
                 butcherView.setY(butcherView.getY() + 1);
             }
         }
+    }
+
+    //AI's rat
+    public void ratStep() {
+
+    }
+
+    public void createThreadRat() {
+        ratView.setX(800);
+        ratView.setY(0);
+
+        ratThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ratStep();
+                try {
+                    Thread.sleep(15);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (isCaught()) {
+                    setGameStarted(false);
+                    setGameOver();
+                }
+            }
+        });
     }
 
     //Label with words "Game Over" was set on main Frame + gameOver sound is started
@@ -236,7 +267,8 @@ public class HelloController {
 
     //If border's pictures is crossing
     public Boolean isCaught() {
-        return playerView.getBoundsInParent().intersects(butcherView.getBoundsInParent());
+        return playerView.getBoundsInParent().intersects(butcherView.getBoundsInParent()) ||
+                playerView.getBoundsInParent().intersects(ratView.getBoundsInParent());
     }
 
     public boolean getGameStarted() {

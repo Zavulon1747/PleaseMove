@@ -26,7 +26,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage)  {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         root.setPrefSize(width, height);
-        root.getChildren().addAll(hl.backgroundView, hl.player, hl.food, hl.butcherView, hl.gameOver, hl.scorePoint);
+        root.getChildren().addAll(hl.backgroundView, hl.player, hl.food, hl.ratView, hl.butcherView, hl.gameOver, hl.scorePoint);
         Scene scene = new Scene(root);
         hl.initMethod();
 
