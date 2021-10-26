@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -26,12 +27,9 @@ public class HelloApplication extends Application {
     public void start(Stage stage)  {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         root.setPrefSize(width, height);
-        root.getChildren().addAll(hl.backgroundView, hl.player, hl.food, hl.ratView, hl.butcherView, hl.gameOver, hl.scorePoint);
+        root.getChildren().addAll(hl.backgroundView, hl.player, hl.food, hl.rat, hl.butcher, hl.gameOver, hl.scorePoint);
         Scene scene = new Scene(root);
         hl.initMethod();
-
-        //Butcher is moving to Player
-
 
 
         stage.setTitle("Eat, Kiwi! Eat!");

@@ -10,8 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import javax.sound.sampled.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -22,10 +21,28 @@ public class HelloController {
     private boolean isGameStarted = false;
     Random random = new Random();
     int countScore = 0;
+    Map<Integer, ImageView> rats = new HashMap<>();
     Map<String, File> sounds = new HashMap<>();
 
     AudioInputStream ais;
     Clip clip;
+    InputStream isPlayer;
+    InputStream isFood;
+    InputStream isButcher;
+    InputStream isRat;
+    InputStream isBG;
+
+    {
+        try {
+            isPlayer = new FileInputStream("D:/Work/PleaseMove/src/pixelArts/kiwiPlayer.png");
+            isFood = new FileInputStream("D:/Work/PleaseMove/src/pixelArts/foodKiwi.png");
+            isButcher = new FileInputStream("D:/Work/PleaseMove/src/pixelArts/chefCook.png");
+            isRat = new FileInputStream("D:/Work/PleaseMove/src/pixelArts/rat25.png");
+            isBG = new FileInputStream("D:/Work/PleaseMove/src/pixelArts/Background1.png");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     Thread butcherThread;
     Thread ratThread;
@@ -34,11 +51,11 @@ public class HelloController {
     Label gameOver = new Label("");
     @FXML
     Label scorePoint = new Label("Score: ");
-    Image playerImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/kiwiPlayer.png");
-    Image foodImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/foodKiwi.png");
-    Image butcherImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/chefCook.png");
-    Image ratImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/rat25.png");
-    Image backgroundImage = new Image("file:///D:/Work/PleaseMove/src/pixelArts/Background1.png");
+    Image playerImage = new Image(isPlayer);
+    Image foodImage = new Image(isFood);
+    Image butcherImage = new Image(isButcher);
+    Image ratImage = new Image(isRat);
+    Image backgroundImage = new Image(isBG);
     @FXML
     ImageView playerView = new ImageView(playerImage);
     @FXML
@@ -47,10 +64,14 @@ public class HelloController {
     ImageView butcherView = new ImageView(butcherImage);
     @FXML
     ImageView ratView = new ImageView(ratImage);
+
     @FXML
     ImageView backgroundView = new ImageView(backgroundImage);
     Player player = new Player(playerView);
     Food food = new Food(foodView);
+    Rat rat = new Rat(ratView);
+    Butcher butcher = new Butcher(butcherView);
+
 
 
     @FXML
@@ -126,7 +147,10 @@ public class HelloController {
             foodView.setY(random.nextInt(550));
         }
         setScorePoint();
-        if(countScore == 2) createThreadRat();
+        if(countScore % 8==0 || countScore == 1) {
+            ratView.setX(801);
+            createThreadRat();
+        }
         playNyam();
     }
 
@@ -157,14 +181,14 @@ public class HelloController {
         ratThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (ratView.getX()>(-26.0)&& getGameStarted()) {
+                while (ratView.getX()>(-26.0) && getGameStarted()) {
                     ratStep();
                     try {
-                        Thread.currentThread().sleep(20);
+                        Thread.sleep(20);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    if (isCaught()) {
+                    if (isCaughtByRat()) {
                         setGameStarted(false);
                         setGameOver();
                         break;
@@ -204,7 +228,7 @@ public class HelloController {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    if (isCaught()) {
+                    if (isCaughtByButcher()) {
                         setGameStarted(false);
                         setGameOver();
                     }
@@ -270,9 +294,12 @@ public class HelloController {
     }
 
     //If border's pictures is crossing
-    public Boolean isCaught() {
-        return playerView.getBoundsInParent().intersects(butcherView.getBoundsInParent()) ||
-                playerView.getBoundsInParent().intersects(ratView.getBoundsInParent());
+    public Boolean isCaughtByButcher() {
+        return playerView.getBoundsInParent().intersects(butcherView.getBoundsInParent());
+    }
+
+    public Boolean isCaughtByRat() {
+        return playerView.getBoundsInParent().intersects(ratView.getBoundsInParent());
     }
 
     public boolean getGameStarted() {

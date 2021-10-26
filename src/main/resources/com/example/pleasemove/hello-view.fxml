@@ -11,7 +11,7 @@
       <ImageView fx:id="backgroundView" fitHeight="600.0" fitWidth="800.0" layoutX="6.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="playerView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../Witch_Swapm/src/main/resources/1.png" />
+            <Image url="@../../../../../pixelArts/kiwiPlayer.png" />
          </image>
       </ImageView>
       <ImageView fx:id="foodView" fitHeight="50.0" fitWidth="50.0" layoutX="231.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -30,6 +30,9 @@
          </font>
       </Label>
       <Label fx:id="scorePoint" layoutX="727.0" layoutY="5.0" prefHeight="19.0" prefWidth="67.0" text="score:" />
-      <ImageView fx:id="ratView" fitHeight="25.0" fitWidth="25.0" layoutX="800.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="ratView" fitHeight="25.0" fitWidth="25.0" layoutX="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../pixelArts/rat25.png" />
+         </image></ImageView>
    </children>
 </AnchorPane>
